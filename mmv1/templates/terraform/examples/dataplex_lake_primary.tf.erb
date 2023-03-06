@@ -1,0 +1,13 @@
+resource "lake" "primary" "<%= ctx[:primary_resource_id] %>" {
+  name           = "<%= ctx[:vars]["instance_name"] %>"
+  location     = "us-west1"
+  description  = "Lake for DCL"
+  display_name = "Lake for DCL"
+
+  labels = {
+    my-lake = "exists"
+  }
+
+  project = "my-project-name"
+}
+
