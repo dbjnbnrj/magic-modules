@@ -1,13 +1,13 @@
-resource "lake" "primary" "<%= ctx[:primary_resource_id] %>" {
-  name           = "<%= ctx[:vars]["instance_name"] %>"
-  location     = "us-west1"
-  description  = "Lake for DCL"
-  display_name = "Lake for DCL"
+resource "google_dataplex_lake" "<%= ctx[:primary_resource_id] %>" {
+  location     = "us-central1"
+  name         = "tf-test-lake%{random_suffix}"
+  description  = "Test Lake"
+  display_name = "Test Lake"
 
   labels = {
     my-lake = "exists"
   }
 
-  project = "my-project-name"
+  project = "<%= ctx[:test_env_vars]['project_name'] %>"
 }
 

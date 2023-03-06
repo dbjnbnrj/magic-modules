@@ -110,6 +110,10 @@ module Api
       # If unset, defaults to 'ga'
       attr_reader :min_version
 
+      # [Optional] Flag to check if zone should be substituted in the url for testing
+      # Defaults to true
+      attr_reader :substitute_zone_value
+
       def validate
         super
 
@@ -138,6 +142,7 @@ module Api
         )
         check :iam_policy_version, type: String
         check :min_version, type: String
+        check :substitute_zone_value, type: :boolean, default: true
       end
     end
   end

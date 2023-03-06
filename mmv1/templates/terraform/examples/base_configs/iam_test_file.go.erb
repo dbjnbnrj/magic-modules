@@ -42,7 +42,7 @@ import_url = import_format.gsub(/({{)%?(\w+)(}})/, '%s').gsub(object.__product.b
 				<% import_qualifiers.push('context["project_id"]') -%>
 			<% end -%>
 		<% end -%>
-	<% elsif param == 'zone' -%>
+	<% elsif param == 'zone' and object.iam_policy.substitute_zone_value -%>
 		<% import_qualifiers.push('GetTestZoneFromEnv()') -%>
 	<% elsif param == 'region' || param == 'location' -%>
 		<% if example.region_override.nil? -%>
@@ -54,7 +54,6 @@ import_url = import_format.gsub(/({{)%?(\w+)(}})/, '%s').gsub(object.__product.b
 <% end -%>
 func TestAcc<%= resource_name -%>IamBindingGenerated(t *testing.T) {
 	t.Parallel()
-
 <%= lines(compile(pwd + '/templates/terraform/iam/iam_context.go.erb')) -%>
 
 	VcrTest(t, resource.TestCase{
@@ -361,7 +360,6 @@ func TestAcc<%= resource_name -%>IamPolicyGenerated_withCondition(t *testing.T) 
 <% unless object.iam_policy.admin_iam_role.nil? -%>
 	context["service_account"] = sa
 <% end -%>
-
 <% if object.iam_policy.admin_iam_role.nil? -%>
 	// Test should have 2 bindings: one with a description and one without. Any < chars are converted to a unicode character by the API.
 	expectedPolicyData := Nprintf(`{"bindings":[{"condition":{"description":"%{condition_desc}","expression":"%{condition_expr}","title":"%{condition_title}"},"members":["user:admin@hashicorptest.com"],"role":"%{role}"},{"condition":{"expression":"%{condition_expr}","title":"%{condition_title}-no-description"},"members":["user:admin@hashicorptest.com"],"role":"%{role}"}]}`, context)
