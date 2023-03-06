@@ -28,8 +28,8 @@ apis_required:
 objects:
   - !ruby/object:Api::Resource
     name: "Lake"
-    base_url: "projects/{{project}}/locations/{{location}}/lakes"
-    self_link: "projects/{{project}}/locations/{{location}}/lakes"
+    base_url: "projects/{{project}}/locations/{{location}}/lakes/{{name}}"
+    self_link: "projects/{{project}}/locations/{{location}}/lakes/{{name}}"
     exclude_resource: true
     description: |
       Only used to generate IAM resources
@@ -39,3 +39,30 @@ objects:
         output: true
         description: |
           Dummy property.
+  - !ruby/object:Api::Resource
+    name: "Zone"
+    base_url: "projects/{{project}}/locations/{{location}}/lakes/{{lake}}/zones/{{name}}"
+    self_link: "projects/{{project}}/locations/{{location}}/lakes/{{lake}}/zones/{{name}}"
+    exclude_resource: true
+    description: |
+      Only used to generate IAM resources
+    properties:
+      - !ruby/object:Api::Type::String
+        name: "name"
+        output: true
+        description: |
+          Dummy property.
+  - !ruby/object:Api::Resource
+    name: "Asset"
+    base_url: "projects/{{project}}/locations/{{location}}/lakes/{{lake}}/zones/{{dataplex_zone}}/assets/{{name}}"
+    self_link: "projects/{{project}}/locations/{{location}}/lakes/{{lake}}/zones/{{dataplex_zone}}/assets/{{name}}"
+    exclude_resource: true
+    description: |
+      Only used to generate IAM resources
+    properties:
+      - !ruby/object:Api::Type::String
+        name: "name"
+        output: true
+        description: |
+          Dummy property.
+

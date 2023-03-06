@@ -1,0 +1,9 @@
+resource "zone" "primary" "<%= ctx[:primary_resource_id] %>" {
+  name           = "<%= ctx[:vars]["instance_name"] %>"
+  location     = "us-west1"
+  description  = "Primary Zone"
+  display_name = "Primary Zone"
+
+  project = "my-project-name"
+}
+

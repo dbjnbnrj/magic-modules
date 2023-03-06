@@ -31,6 +31,38 @@ overrides: !ruby/object:Overrides::ResourceOverrides
         primary_resource_name: "fmt.Sprintf(\"dataplex_lake_primary_%s\", context[\"random_suffix\"])"
         vars:
           name: "lake"
+  Zone: !ruby/object:Overrides::Terraform::ResourceOverride
+    id_format: "projects/{{project}}/locations/{{location}}/lakes/{{lake}}/zones/{{name}}"
+    import_format:
+      ["projects/{{project}}/locations/{{location}}/lakes/{{lake}}/zones/{{name}}"]
+    iam_policy: !ruby/object:Api::Resource::IamPolicy
+      exclude: false
+      method_name_separator: ":"
+      parent_resource_attribute: "zone"
+      fetch_iam_policy_verb: :GET
+    examples:
+      - !ruby/object:Provider::Terraform::Examples
+        name: "dataplex_zone_primary"
+        primary_resource_id: "primary"
+        primary_resource_name: "fmt.Sprintf(\"dataplex_zone_primary_%s\", context[\"random_suffix\"])"
+        vars:
+          name: "zone"
+  Asset: !ruby/object:Overrides::Terraform::ResourceOverride
+    id_format: "projects/{{project}}/locations/{{location}}/lakes/{{lake}}/zones/{{dataplex_zone}}/assets"
+    import_format:
+      ["projects/{{project}}/locations/{{location}}/lakes/{{lake}}/zones/{{dataplex_zone}}/assets"]
+    iam_policy: !ruby/object:Api::Resource::IamPolicy
+      exclude: false
+      method_name_separator: ":"
+      parent_resource_attribute: "asset"
+      fetch_iam_policy_verb: :GET
+    examples:
+      - !ruby/object:Provider::Terraform::Examples
+        name: "dataplex_asset_primary"
+        primary_resource_id: "primary"
+        primary_resource_name: "fmt.Sprintf(\"dataplex_asset_primary_%s\", context[\"random_suffix\"])"
+        vars:
+          name: "asset"
 # This is for copying files over
 files: !ruby/object:Provider::Config::Files
   # These files have templating (ERB) code that will be run.

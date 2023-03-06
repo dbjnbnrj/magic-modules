@@ -1,0 +1,13 @@
+resource "asset" "primary" "<%= ctx[:primary_resource_id] %>" {
+  name           = "<%= ctx[:vars]["instance_name"] %>"
+  location     = "us-west1"
+  description  = "Test Asset"
+  display_name = "Test Asset"
+
+  labels = {
+    my-asset = "exists"
+  }
+
+  project = "my-project-name"
+}
+
